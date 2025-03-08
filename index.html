@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <title>Projeto Clima from Thiago Rocha</title>
+
+    <!-- Adicionar depois a API do Google para o professor ver -->
+  </head>
+
+  <body>
+    <div class="main-box">
+      <input class="placeholder-city" placeholder="Digite o nome da cidade" />
+      <button class="button-search" onclick="clickButton()">
+        <img
+          class="button-img"
+          src="https://www.svgrepo.com/show/488200/find.svg"
+          alt="Lupa de Busca"
+        />
+      </button>
+
+      <div class="middle-box">
+        <h2 class="city">Tempo em São Paulo</h2>
+
+        <p class="temp">21°C</p>
+
+        <div class="last-box">
+          <img
+            class="climate-img"
+            src="https://openweathermap.org/img/wn/04n.png"
+            alt="imagem do clima"
+          />
+          <p class="climate-text">Nublado</p>
+        </div>
+      </div>
+      <p class="humidity">Umidade: 76%</p>
+    </div>
+  </body>
+</html>
