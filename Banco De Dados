@@ -1,0 +1,43 @@
+
+    CREATE DATABASE clima_app;
+
+   
+    USE clima_app;
+
+
+    CREATE TABLE usuarios (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        nome VARCHAR(255),
+        email VARCHAR(255),
+        senha VARCHAR(255)
+    );
+
+    -- Criado para salvar as últimas pesquisas feitas pelo usuário
+    CREATE TABLE pesquisas (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        usuario_id INT,
+        cidade VARCHAR(255),
+        data_hora DATETIME,
+        resultado TEXT,
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    );
+
+    -- Limitador para aparecer as 3 últimas pesquisas do usuário 
+    DELIMITER //
+
+    CREATE TRIGGER limitar_pesquisas
+    BEFORE INSERT ON pesquisas
+    FOR EACH ROW
+    BEGIN
+        DECLARE count INT;
+        DECLARE old_id INT;
+
+        SELECT COUNT(*) INTO count FROM pesquisas WHERE usuario_id = NEW.usuario_id;
+
+        IF count >= 3 THEN
+            SELECT id INTO old_id FROM pesquisas WHERE usuario_id = NEW.usuario_id ORDER BY data_hora ASC LIMIT 1;
+            DELETE FROM pesquisas WHERE id = old_id;
+        END IF;
+    END //
+
+    DELIMITER ;
