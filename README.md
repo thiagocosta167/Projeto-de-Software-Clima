@@ -32,5 +32,7 @@ Ele tem como intuito ser um projeto onde após o usuário criar o seu cadastro, 
     2.  Crie um ambiente virtual (opcional).
     3.  Instale as dependências: `pip install -r requirements.txt`
     4.  Configure o banco de dados MySQL.
-    5.  Execute o aplicativo: `python app.py`
-    6.  Acesse o aplicativo no navegador: `http://127.0.0.1:5000`
+    5.  Criar a pasta "templates" para armazenar o HMTL dentro 
+    6.  Criar a pasta "static" para armazenas o CSS e JS dentro 
+    7. Execute o aplicativo: `python app.py`
+    8. Acesse o aplicativo no navegador: `http://127.0.0.1:5000`
