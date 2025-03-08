@@ -31,6 +31,8 @@ Ele tem como intuito ser um projeto onde após o usuário criar o seu cadastro, 
      ## Como Executar o Projeto
 
     1. Clone este repositório: `git clone <URL_do_repositorio>`
+    2.  Crie a pasta "templates" para armazenar o HMTL dentro 
+    3.  Crie a pasta "static" para armazenas o CSS e JS dentro 
     2. Navegue até o diretório do projeto: `cd <nome_do_repositorio>`
     3. Crie um ambiente virtual: `python -m venv venv`
     4. Ative o ambiente virtual:
@@ -38,13 +40,10 @@ Ele tem como intuito ser um projeto onde após o usuário criar o seu cadastro, 
         * Windows: `venv\Scripts\activate`
     5. Instale as dependências: `pip install -r requirements.txt`
     6. Configure o banco de dados MySQL:
-        * Crie um banco de dados com o nome "clima_app".
         * Importe o arquivo `banco_de_dados.sql`.
         * Configure as credenciais no arquivo `config.py`.
-    7. Execute o aplicativo: `python app.py`
-    8. Acesse o aplicativo no navegador: `http://127.0.0.1:5000/`
-    9. Configure as variáveis de ambiente.
-    5.  Criar a pasta "templates" para armazenar o HMTL dentro 
-    6.  Criar a pasta "static" para armazenas o CSS e JS dentro 
-    7. Execute o aplicativo: `python app.py`
-    8. Acesse o aplicativo no navegador: `http://127.0.0.1:5000`
+    7. Configure as variáveis de ambiente.
+
+    8. Execute o aplicativo: `python app.py`
+    9. Acesse o aplicativo no navegador: `http://127.0.0.1:5000` para verificar a conexão com o MWSQL
+   10. Acesse o aplicativo no navegador: `http://127.0.0.1:5000/clima`
