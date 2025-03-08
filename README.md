@@ -11,6 +11,12 @@ Ele tem como intuito ser um projeto onde após o usuário criar o seu cadastro, 
     * JavaScript
     * MySQL
 
+## APIs Utilizadas
+
+    * Google Fonts API: [https://fonts.google.com/](https://fonts.google.com/)]
+    * API de Clima: [(https://openweathermap.org/)]
+
+
     ## **Funcionalidades Principais**
 
     * Cadastro de usuários: Permite que os usuários criem uma conta no sistema.
