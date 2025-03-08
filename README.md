@@ -14,7 +14,7 @@ Ele tem como intuito ser um projeto onde após o usuário criar o seu cadastro, 
 
 ## APIs Utilizadas
 
-    * Google Fonts API: [(https://fonts.google.com/](https://fonts.google.com/)]
+    * Google Fonts API: [(https://fonts.google.com/)]
     * API de Clima: [(https://openweathermap.org/)]
 
 
