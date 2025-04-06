@@ -1,1 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
 
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('https://images.unsplash.com/photo-1560773526-435221de2527?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-box {
+    background: #000;
+    opacity: 0.8;
+    border-radius: 20px;
+    padding: 30px;
+    width: 95%;
+    max-width: 450px;
+    position: relative;
+}
+
+/* Estilos para a busca */
+.placeholder-city {
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: #7c7c7c2b;
+    color: white;
+    width: calc(100% - 60px);
+}
+
+.button-search {
+    border: none;
+    outline: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #7c7c7c77;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.button-img {
+    width: 20px;
+}
+
+/* Estilos para o clima */
+.middle-box {
+    margin-top: 25px;
+}
+
+.city {
+    color: white;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.temp {
+    font-size: 24px;
+    color: white;
+    margin: 15px 0;
+}
+
+.last-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.climate-text {
+    font-size: 18px;
+    color: white;
+    text-transform: capitalize;
+}
+
+.humidity {
+    color: white;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+/* Estilos para login */
+.login-box {
+    max-width: 400px;
+}
+
+.toggle-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #7c7c7c2b;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.toggle-btn.active {
+    background: #1a73e8;
+}
+
+.toggle-btn:not(.active):hover {
+    background: #5a5a5c2b;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #7c7c7c2b;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.form button {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #1a73e8;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.form button:hover {
+    opacity: 0.9;
+}
+
+.hidden {
+    display: none;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 25px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    color: white;
+}
+
+.error {
+    background: #ff4444;
+}
+
+.success {
+    background: #00C851;
+}
+
+/* Botão Sair */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: #1a73e8;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: #1557b0;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .main-box {
+        padding: 20px;
+    }
+    
+    .toggle-btn,
+    .form input,
+    .form button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .logout-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+}
