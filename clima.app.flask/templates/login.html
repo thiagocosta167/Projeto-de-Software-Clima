@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Clima</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,500,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    {% if 'usuario_id' in session %}
+    <a href="/logout" class="logout-btn">Sair</a>
+    {% endif %}
+
+    <div class="main-box login-box">
+        <div class="toggle-container">
+            <button class="toggle-btn active" onclick="showForm('login')">Entrar</button>
+            <button class="toggle-btn" onclick="showForm('signup')">Cadastrar</button>
+        </div>
+
+        <form id="loginForm" class="form" method="POST" action="/login">
+            <input type="email" name="email" placeholder="E-mail" required />
+            <input type="password" name="senha" placeholder="Senha" required />
+            <button type="submit">Entrar</button>
+        </form>
+
+        <form id="signupForm" class="form hidden" method="POST" action="/cadastro">
+            <input type="text" name="nome" placeholder="Nome" required />
+            <input type="email" name="email" placeholder="E-mail" required />
+            <input type="password" name="senha" placeholder="Senha" required />
+            <input type="password" name="confirmar_senha" placeholder="Confirmar Senha" required />
+            <button type="submit">Criar Conta</button>
+        </form>
+
+        <div class="messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>
