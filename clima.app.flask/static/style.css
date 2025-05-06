@@ -1,3 +1,4 @@
+/* ===== RESET & GLOBAL ===== */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +9,6 @@
 body {
     height: 100vh;
     width: 100vw;
-    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,26 +16,105 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    margin: 0;
 }
 
-.main-box {
-    background: #000;
-    opacity: 0.8;
+/* ===== CAIXAS PRINCIPAIS ===== */
+.main-box,
+.login-box {
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 20px;
     padding: 30px;
     width: 95%;
     max-width: 450px;
     position: relative;
+    color: white;
 }
 
-/* Estilos para a busca */
+/* ===== LOGIN / CADASTRO ===== */
+.toggle-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(124, 124, 124, 0.2);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+.toggle-btn.active {
+    background: #1a73e8;
+}
+.toggle-btn:not(.active):hover {
+    background: rgba(90, 90, 92, 0.2);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(124, 124, 124, 0.2);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+.form button {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #1a73e8;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.form button:hover {
+    opacity: 0.9;
+}
+
+/* ===== UTILITÁRIAS ===== */
+.hidden {
+    display: none;
+}
+
+/* ===== MENSAGENS ===== */
+.alert {
+    padding: 15px;
+    border-radius: 25px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+.error {
+    background: rgba(255, 68, 68, 0.8);
+    color: white;
+}
+.success {
+    background: rgba(0, 200, 81, 0.8);
+    color: white;
+}
+
+/* ===== PÁGINA DO CLIMA ===== */
 .placeholder-city {
     border: none;
     outline: none;
     padding: 15px 20px;
     border-radius: 25px;
     font-size: 16px;
-    background-color: #7c7c7c2b;
+    background-color: rgba(124, 124, 124, 0.2);
     color: white;
     width: calc(100% - 60px);
 }
@@ -46,7 +125,7 @@ body {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background-color: #7c7c7c77;
+    background-color: rgba(124, 124, 124, 0.5);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -60,13 +139,11 @@ body {
     width: 20px;
 }
 
-/* Estilos para o clima */
 .middle-box {
     margin-top: 25px;
 }
 
 .city {
-    color: white;
     font-size: 28px;
     font-weight: 300;
     margin-bottom: 10px;
@@ -74,7 +151,6 @@ body {
 
 .temp {
     font-size: 24px;
-    color: white;
     margin: 15px 0;
 }
 
@@ -87,133 +163,102 @@ body {
 
 .climate-text {
     font-size: 18px;
-    color: white;
     text-transform: capitalize;
 }
 
 .humidity {
-    color: white;
     margin-top: 15px;
     font-size: 16px;
 }
 
-/* Estilos para login */
-.login-box {
-    max-width: 400px;
-}
-
-.toggle-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.toggle-btn {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
-    background: #7c7c7c2b;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s;
-}
-
-.toggle-btn.active {
-    background: #1a73e8;
-}
-
-.toggle-btn:not(.active):hover {
-    background: #5a5a5c2b;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.form input {
-    width: 100%;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 25px;
-    background: #7c7c7c2b;
-    color: white;
-    font-size: 16px;
-    outline: none;
-}
-
-.form button {
-    padding: 15px;
-    border: none;
-    border-radius: 25px;
-    background: #1a73e8;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.form button:hover {
-    opacity: 0.9;
-}
-
-.hidden {
-    display: none;
-}
-
-.alert {
-    padding: 15px;
-    border-radius: 25px;
-    margin-top: 20px;
-    text-align: center;
-    font-weight: 500;
-    color: white;
-}
-
-.error {
-    background: #ff4444;
-}
-
-.success {
-    background: #00C851;
-}
-
-/* Botão Sair */
-.logout-btn {
+/* ===== FAVORITOS ===== */
+.user-actions {
     position: absolute;
     top: 20px;
     right: 20px;
-    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.favorites-btn,
+.logout-btn {
+    padding: 8px 15px;
     border-radius: 25px;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s;
+}
+.logout-btn {
     background: #1a73e8;
     color: white;
-    text-decoration: none;
-    font-size: 14px;
+}
+.favorites-btn {
+    background: rgba(255, 204, 0, 0.3);
+    color: white;
+    border: 1px solid #ffcc00;
+}
+
+.favorite-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 25px;
+    background: rgba(255, 204, 0, 0.3);
+    color: white;
+    border: 1px solid #ffcc00;
+    cursor: pointer;
+    font-size: 16px;
     transition: all 0.3s;
 }
 
-.logout-btn:hover {
-    background: #1557b0;
+.favoritos-list {
+    list-style: none;
+    margin-top: 20px;
+}
+.favoritos-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Responsividade */
+/* Botão “Voltar” nos Favoritos */
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: rgba(26, 115, 232, 0.3);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    border: 1px solid #1a73e8;
+    transition: all 0.3s;
+}
+.back-button:hover {
+    background: rgba(26, 115, 232, 0.5);
+}
+
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 480px) {
-    .main-box {
+    .main-box,
+    .login-box {
         padding: 20px;
     }
-    
+
     .toggle-btn,
     .form input,
     .form button {
         padding: 12px 15px;
         font-size: 14px;
     }
-    
-    .logout-btn {
-        padding: 8px 15px;
+
+    .logout-btn,
+    .favorites-btn {
+        padding: 6px 12px;
         font-size: 13px;
     }
 }
