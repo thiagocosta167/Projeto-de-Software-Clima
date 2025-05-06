@@ -1,18 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
 
-# Carrega variáveis de ambiente
+# Configuração inicial
 load_dotenv()
-
-# Configuração do Flask com caminho absoluto para templates
-template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
-app = Flask(__name__, template_folder=template_dir)
+app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
-# Configuração do Banco de Dados
+# Banco de dados
 db_config = {
     'host': os.getenv('DB_HOST'),
     'user': os.getenv('DB_USER'),
@@ -21,16 +18,14 @@ db_config = {
 }
 
 def get_db_connection():
-    """Estabelece conexão com o banco de dados"""
     try:
-        conn = mysql.connector.connect(**db_config)
-        return conn
+        return mysql.connector.connect(**db_config)
     except mysql.connector.Error as err:
         flash('Erro ao conectar ao banco de dados', 'error')
         app.logger.error(f"Erro MySQL: {err}")
         return None
 
-# Rotas de Autenticação
+# Rotas de autenticação
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'usuario_id' in session:
@@ -75,13 +70,11 @@ def cadastro():
     if conn:
         try:
             with conn.cursor() as cursor:
-                # Verifica se email já existe
                 cursor.execute("SELECT id FROM usuarios WHERE email = %s", (email,))
                 if cursor.fetchone():
                     flash('E-mail já cadastrado', 'error')
                     return redirect(url_for('login'))
 
-                # Cria novo usuário
                 hashed_pw = generate_password_hash(senha)
                 cursor.execute(
                     "INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
@@ -102,7 +95,7 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-# Rotas Principais
+# Rotas principais
 @app.route('/')
 def index():
     return redirect(url_for('login'))
@@ -112,6 +105,77 @@ def pagina_clima():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
     return render_template('index.html')
+
+# Rotas de favoritos
+@app.route('/favoritar', methods=['POST'])
+def favoritar():
+    if 'usuario_id' not in session:
+        return jsonify({'erro': 'Não logado'}), 401
+
+    cidade = request.json.get('cidade')
+    if not cidade or cidade == "São Paulo":
+        return jsonify({'erro': 'Cidade inválida'}), 400
+
+    conn = get_db_connection()
+    if conn:
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    "SELECT id FROM favoritos WHERE usuario_id = %s AND cidade = %s",
+                    (session['usuario_id'], cidade)
+                )
+                if cursor.fetchone():
+                    return jsonify({'erro': 'Cidade já favoritada'}), 400
+
+                cursor.execute(
+                    "INSERT INTO favoritos (usuario_id, cidade) VALUES (%s, %s)",
+                    (session['usuario_id'], cidade)
+                )
+                conn.commit()
+                return jsonify({'sucesso': True}), 200
+        finally:
+            conn.close()
+    return jsonify({'erro': 'Erro no servidor'}), 500
+
+@app.route('/remover_favorito', methods=['POST'])
+def remover_favorito():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    cidade = request.form.get('cidade')
+    conn = get_db_connection()
+    if conn:
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    "DELETE FROM favoritos WHERE usuario_id = %s AND cidade = %s",
+                    (session['usuario_id'], cidade)
+                )
+                conn.commit()
+                flash('Cidade removida dos favoritos!', 'success')
+        finally:
+            conn.close()
+    return redirect(url_for('listar_favoritos'))
+
+@app.route('/favoritos')
+def listar_favoritos():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    if conn:
+        try:
+            with conn.cursor(dictionary=True) as cursor:
+                cursor.execute(
+                    "SELECT cidade FROM favoritos WHERE usuario_id = %s",
+                    (session['usuario_id'],)
+                )
+                favoritos = cursor.fetchall()
+                return render_template('favoritos.html', favoritos=favoritos)
+        finally:
+            conn.close()
+    flash('Erro ao carregar favoritos', 'error')
+    return redirect(url_for('pagina_clima'))
 
 if __name__ == '__main__':
     app.run(debug=True)
