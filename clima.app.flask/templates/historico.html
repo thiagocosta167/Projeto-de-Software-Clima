@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Histórico de Buscas</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    {% if 'usuario_id' in session %}
+    <div class="user-actions">
+      <a href="/logout" class="logout-btn">Sair</a>
+    </div>
+    {% endif %}
+
+    <div class="main-box">
+      <h1>🕒 Histórico de Buscas</h1>
+
+      <ul class="favoritos-list">
+        {% for busca in historico %}
+        <li>
+          <a href="#" class="favorite-city-link" data-city="{{ busca.cidade }}">
+            {{ busca.cidade }} ({{ busca.data_busca.strftime('%d/%m/%Y %H:%M') }})
+          </a>
+          <form
+            action="/remover_historico"
+            method="POST"
+            style="display: inline"
+          >
+            <input type="hidden" name="id" value="{{ busca.id }}" />
+            <button
+              type="submit"
+              style="
+                background: rgba(255, 68, 68, 0.3);
+                border: 1px solid #ff4444;
+                color: white;
+                border-radius: 20px;
+                padding: 5px 10px;
+                cursor: pointer;
+              "
+            >
+              Remover
+            </button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <a
+        href="/clima"
+        class="back-button"
+        >Voltar ao Clima</a
+      >
+    </div>
+
+    <script>
+      document.querySelectorAll(".favorite-city-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault(); 
+          const city = this.dataset.city; 
+          window.location.href = `/clima?cidade=${encodeURIComponent(city)}`; 
+        });
+      });
+    </script>
+  </body>
+</html>
