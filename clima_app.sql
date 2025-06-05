@@ -14,3 +14,12 @@ CREATE TABLE favoritos (
     cidade VARCHAR(100) NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
+
+
+CREATE TABLE historico_buscas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    cidade VARCHAR(255) NOT NULL,
+    data_busca DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
