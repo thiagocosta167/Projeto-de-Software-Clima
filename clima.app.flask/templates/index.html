@@ -4,15 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projeto Clima</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,500,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link 
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,500,700&display=swap" 
+    rel="stylesheet" 
+  />
+  <link 
+    rel="stylesheet" 
+    href="{{ url_for('static', filename='style.css') }}" 
+  />
 </head>
 <body>
   {% if 'usuario_id' in session %}
-    <div class="user-actions">
-      <a href="/favoritos" class="favorites-btn">⭐ Favoritos</a>
-      <a href="/logout" class="logout-btn">Sair</a>
-    </div>
+  <div class="user-actions">
+    <a href="/favoritos" class="favorites-btn">⭐ Favoritos</a>
+    <a href="/logout" class="logout-btn">Sair</a>
+  </div>
   {% endif %}
 
   <div class="main-box">
@@ -20,46 +26,38 @@
       id="cityInput"
       class="placeholder-city"
       placeholder="Digite o nome da cidade"
-      onkeypress="if(event.key==='Enter') clickButton()"
     />
-    <button class="button-search" onclick="clickButton()">
-      <img class="button-img" src="https://www.svgrepo.com/show/488200/find.svg" alt="Buscar" />
+    <button class="button-search">
+      <img 
+        class="button-img" 
+        src="https://www.svgrepo.com/show/488200/find.svg" 
+        alt="Buscar" 
+      />
     </button>
 
     <div class="middle-box">
       <h2 class="city">Tempo em <span id="cityName">São Paulo</span></h2>
       <p class="temp"><span id="temperature">21</span>°C</p>
       <div class="last-box">
-        <img id="weatherIcon" class="climate-img" src="https://openweathermap.org/img/wn/04n.png" alt="Clima" />
+        <img 
+          id="weatherIcon" 
+          class="climate-img" 
+          src="https://openweathermap.org/img/wn/04n.png" 
+          alt="Clima" 
+        />
         <p id="weatherDescription" class="climate-text">Nublado</p>
       </div>
     </div>
     <p class="humidity">Umidade: <span id="humidityValue">76</span>%</p>
 
     {% if 'usuario_id' in session %}
-      <button id="favoriteBtn" class="favorite-button">⭐ Favoritar esta cidade</button>
+    <button id="favoriteBtn" class="favorite-button">
+      ⭐ Favoritar esta cidade
+    </button>
     {% endif %}
   </div>
 
+
   <script src="{{ url_for('static', filename='script.js') }}"></script>
-  <script>
-    document.getElementById('favoriteBtn')?.addEventListener('click', () => {
-      const cidade = document.getElementById('cityName').textContent.trim();
-      if (cidade === "São Paulo") {
-        alert("Busque uma cidade válida primeiro!");
-        return;
-      }
-      fetch('/favoritar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cidade })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.erro) alert(data.erro);
-        else alert(`"${cidade}" favoritada!`);
-      });
-    });
-  </script>
 </body>
 </html>
